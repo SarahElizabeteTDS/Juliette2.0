@@ -64,8 +64,8 @@ bool is_black(int valorSensor) {
 void praFrente() {
 
   // Aciona os motores
-  analogWrite(ENA, 200);
-  analogWrite(ENB, 200);
+  analogWrite(ENA, 150);
+  analogWrite(ENB, 150);
 
   digitalWrite(IN1, LOW);   // A
   digitalWrite(IN2, HIGH);  // A 
@@ -76,7 +76,7 @@ void praFrente() {
 
 void praEsquerda() {
   analogWrite(ENA, 0); //era 100
-  analogWrite(ENB, 170); //era 220
+  analogWrite(ENB, 130); //era 220
   // Aciona os motores no sentido inverso
   digitalWrite(IN1, LOW);   // A
   digitalWrite(IN2, HIGH);  // A 
@@ -85,7 +85,7 @@ void praEsquerda() {
 }
 
 void praDireita() {
-  analogWrite(ENA, 150); //era 200
+  analogWrite(ENA, 110); //era 200
   analogWrite(ENB, 0); //era 120
   // Aciona os motores no sentido inverso
   digitalWrite(IN1, LOW);   // A
