@@ -1,5 +1,5 @@
 int ENA = 3;
-int ENB = 6; //define velocidade aqui
+int ENB = 6;
 int IN1 = 2;
 int IN2 = 4;
 int IN3 = 7;
@@ -11,7 +11,8 @@ int sensorE = 12;
 
 int velocidade = 200;  // Velocidade do motor (0 a 255)
 
-void setup() {
+void setup() 
+{
   Serial.begin(9600);
 
   pinMode(IN1, OUTPUT);
@@ -26,7 +27,8 @@ void setup() {
   pinMode(sensorE, INPUT);
 }
 
-void loop() {
+void loop() 
+{
   int valorSensorE = digitalRead(sensorE);
   int valorSensorM = digitalRead(sensorM);
   int valorSensorD = digitalRead(sensorD);
@@ -57,7 +59,6 @@ bool is_black(int valorSensor) {
 }
 
 void praFrente() {
-
   // Aciona os motores
   analogWrite(ENA, 200); //esquerda
   analogWrite(ENB, 200); // direita
@@ -67,7 +68,6 @@ void praFrente() {
   digitalWrite(IN3, LOW);   // B D
   digitalWrite(IN4, HIGH);  // B D
 }
-
 
 void praEsquerda() {
   analogWrite(ENA, 150);
@@ -80,7 +80,7 @@ void praEsquerda() {
 }
 
 void praDireita() {
-   analogWrite(ENA, 150);
+  analogWrite(ENA, 150);
   analogWrite(ENB, 100);
   // Aciona os motores no sentido inverso
   digitalWrite(IN1, HIGH);  // A E
@@ -88,6 +88,5 @@ void praDireita() {
   digitalWrite(IN3, LOW);   // B D
   digitalWrite(IN4, HIGH);  // B D
 }
-
 //ter a opcao de colocar a velocidade como var da function --> fazer por ultimo
 //arrumar o sensor direito (não está funfando direito (calibrar o sensor))
