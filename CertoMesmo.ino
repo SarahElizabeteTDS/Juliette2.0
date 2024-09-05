@@ -5,9 +5,9 @@ int IN2 = 4;
 int IN3 = 7;
 int IN4 = 5;
 
-int sensorD = 12;
+int sensorD = 10;
 int sensorM = 11;
-int sensorE = 10;
+int sensorE = 12;
 
 int velocidade = 200;  // Velocidade do motor (0 a 255)
 
@@ -27,9 +27,9 @@ void setup() {
 }
 
 void loop() {
-  int valorSensorE = analogRead(sensorE);
-  int valorSensorM = analogRead(sensorM);
-  int valorSensorD = analogRead(sensorD);
+  int valorSensorE = digitalRead(sensorE);
+  int valorSensorM = digitalRead(sensorM);
+  int valorSensorD = digitalRead(sensorD);
 
   Serial.print("Sensor E: ");
   Serial.print(valorSensorE);
@@ -37,35 +37,30 @@ void loop() {
   Serial.print(valorSensorM);
   Serial.print(" Sensor D: ");
   Serial.println(valorSensorD);
-
-  if (is_black(valorSensorM)) { // se o sensor do meio estiver no preto
-    if (!is_black(valorSensorE)) { // se o sensor esquerdo estiver no branco
-      praEsquerda();
-    } else if (!is_black(valorSensorD)) { // se o sensor direito estiver no branco
-      praDireita();
-    }
-  } else {
-    if (!is_black(valorSensorM) && !is_black(valorSensorE) && !is_black(valorSensorD)) {
-      praDireita();
-    } else if (!is_black(valorSensorM) && is_black(valorSensorE) && is_black(valorSensorD)) {
-      praFrente();
-    } else if (!is_black(valorSensorM) && !is_black(valorSensorE) && is_black(valorSensorD)) {
-      praDireita();
-    } else if (!is_black(valorSensorM) && is_black(valorSensorE) && !is_black(valorSensorD)) {
-      praEsquerda();
-    }
+  if((is_black(valorSensorE) && is_black(valorSensorM) && is_black(valorSensorD)) || (!is_black(valorSensorE) && !is_black(valorSensorM) && !is_black(valorSensorD)) || (!is_black(valorSensorE) && is_black(valorSensorM) && !is_black(valorSensorD)))
+  {
+    praFrente();
   }
+  else if(is_black(valorSensorE) && is_black(valorSensorM) && !is_black(valorSensorD))
+  {
+    praDireita();
+  }
+  else
+  {
+    praEsquerda();
+  }
+
 }
 
 bool is_black(int valorSensor) {
-  return valorSensor == 0;
+  return valorSensor == 1;
 }
 
 void praFrente() {
 
   // Aciona os motores
-  analogWrite(ENA, 255); //esquerda
-  analogWrite(ENB, 255); // direita
+  analogWrite(ENA, 200); //esquerda
+  analogWrite(ENB, 200); // direita
 
   digitalWrite(IN1, LOW);   // A E
   digitalWrite(IN2, HIGH);  // A E
@@ -75,8 +70,8 @@ void praFrente() {
 
 
 void praEsquerda() {
-  analogWrite(ENA, 255);
-  analogWrite(ENB, 240);
+  analogWrite(ENA, 150);
+  analogWrite(ENB, 100);
   // Aciona os motores no sentido inverso
   digitalWrite(IN1, LOW);   // A E
   digitalWrite(IN2, HIGH);  // A E
@@ -85,8 +80,8 @@ void praEsquerda() {
 }
 
 void praDireita() {
-   analogWrite(ENA, 255);
-  analogWrite(ENB, 240);
+   analogWrite(ENA, 150);
+  analogWrite(ENB, 100);
   // Aciona os motores no sentido inverso
   digitalWrite(IN1, HIGH);  // A E
   digitalWrite(IN2, LOW);   // A E
@@ -95,3 +90,4 @@ void praDireita() {
 }
 
 //ter a opcao de colocar a velocidade como var da function --> fazer por ultimo
+//arrumar o sensor direito (não está funfando direito (calibrar o sensor))
